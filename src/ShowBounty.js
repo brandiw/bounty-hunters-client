@@ -13,15 +13,7 @@ class ShowBounty extends Component {
 	}
 
 	componentDidMount() {
-		fetch(SERVER_URL+'/'+this.props.match.params.id)
-		.then(response=>response.json())
-		.then(json=>{
-			console.log(json)
-			this.setState({bounty: json})
-		})
-		.catch(err=>{
-			console.log('Error fetching details:', err)
-		})
+		this.setState({bounty: this.props.bounty})
 	}
 
 	render(){
@@ -35,6 +27,7 @@ class ShowBounty extends Component {
 				<h4>Hunters:</h4>
 				{this.state.bounty.hunters.join(', ')}
 				<h4>{status}</h4>
+				<button onClick={this.props.toggleForm}>Edit</button>
 			</div>
 		)
 	}

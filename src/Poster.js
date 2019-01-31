@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import SERVER_URL from './constants/server'
-import { Link } from 'react-router-dom'
 
 class Poster extends Component {
 
@@ -21,12 +20,16 @@ class Poster extends Component {
 	}
 	
 	render() {
+		const more = (<button onClick={()=>this.props.changeCurrent(this.props.bounty)}>More</button>)
+		const less = (<button onClick={()=>this.props.changeCurrent({})}>Less</button>)
+		const button = this.props.current===this.props.bounty?less:more
 		return (
 			<div className="poster">
 				<h3>{this.props.bounty.name}</h3>
 				<h4>${this.props.bounty.reward}</h4>
-				<Link to={`/${this.props.bounty._id}`}>More</Link>
-				<button onClick={this.deleteBounty}>Delete</button>
+				{button}
+{/*				<Link to={`/${this.props.bounty._id}`}>More</Link>
+*/}				<button onClick={this.deleteBounty}>Delete</button>
 			</div>
 		)
 	}

@@ -3,19 +3,19 @@ import './App.css'
 // bring in server url from constants folder
 import SERVER_URL from './constants/server'
 
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-
-
 // import components to render inside App
 import Poster from './Poster'
 import NewBountyForm from './NewBountyForm'
 import ShowBounty from './ShowBounty'
+import EditBountyForm from './EditBountyForm'
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      bounties: []
+      bounties: [],
+      current: {},
+      form: 'new'
     }
   }
 
@@ -23,6 +23,10 @@ class App extends Component {
   // runs just after render()
   componentDidMount() {
     this.getBounties()
+  }
+
+  changeCurrent = (obj) => {
+    this.setState({current: obj})
   }
 
   getBounties = () => {
@@ -40,19 +44,36 @@ class App extends Component {
     })   
   }
 
+  toggleForm = () => {
+    const newForm = this.state.form==='edit'?'new':'edit'
+    this.setState({form: newForm})
+  }
+
   render() {
     const posters = this.state.bounties.map((bounty, i)=>{
-      return <Poster bounty={bounty} key={i} rerender={this.getBounties} />
+      return <Poster bounty={bounty} key={i} rerender={this.getBounties} changeCurrent={this.changeCurrent} current={this.state.current}/>
     })
+    const more = this.state.current._id ? 
+            <ShowBounty 
+              bounty={this.state.current} 
+              key={this.state.current._id} 
+              toggleForm={this.toggleForm}/> :
+            <h3>Crime is on the rise!</h3>
+    const form = this.state.form==='new' ?
+                <NewBountyForm rerender={this.getBounties} /> :
+                <EditBountyForm 
+                  current={this.state.current}
+                  rerender={this.getBounties}
+                  changeCurrent={this.changeCurrent}
+                  toggleForm={this.toggleForm}
+                  />
     return (
-      <Router>
         <div className="App">
           <h1>WANTED</h1>
-          <Route exact path='/:id' component={ShowBounty}/>
           {posters}
-          <NewBountyForm rerender={this.getBounties}/>
+          {more}
+          {form}
         </div>
-      </Router>
     );
   }
 }
