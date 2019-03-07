@@ -1,5 +1,5 @@
 # Bounty Hunters Client
-### General Assembly Seattle, WDI-22
+### General Assembly Seattle
 
 Example of a React client CRUD app for usage with [Bounty Hunters API](https://github.com/brandiw/mongoose-bounty-hunters). Fetch calls ping deployed version.
 
