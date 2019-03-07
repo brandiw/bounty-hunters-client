@@ -3,11 +3,25 @@ import SERVER_URL from './constants/server'
 
 class Poster extends Component {
 	deleteBounty = () => {
-    console.log('TODO: Delete Bounty')
+    fetch(`${SERVER_URL}/${this.props.bounty._id}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      return response.status === 204 ? {} : response.json()
+    })
+    .then(json => {
+      // RERENDER!
+      this.props.rerender()
+    })
+    .catch(err => {
+      console.log('Derp', err)
+    })
 	}
 
 	render() {
-		const button = <button>Less/More</button>
+    const more = <button onClick={ () => this.props.changeCurrent(this.props.bounty) }>More</button>
+    const less = <button onClick={ () => this.props.changeCurrent({}) }>Less</button>
+		const button = this.props.bounty._id === this.props.currentId ? less : more
 
     return (
 			<div className="poster">

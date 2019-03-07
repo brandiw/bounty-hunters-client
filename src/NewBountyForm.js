@@ -33,8 +33,26 @@ class NewBountyForm extends Component {
 
 	postBounty = (e) => {
 		e.preventDefault()
-    console.log('TODO: POST Bounty')
-	}
+    fetch(SERVER_URL, {
+      method: 'POST',
+      body: JSON.stringify(this.state),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(json => {
+      this.setState({
+        name: '',
+        wantedFor: '',
+        client: '',
+        reward: 0,
+        ship: '',
+        hunters: [],
+        captured: false
+    }, this.props.rerender)
+	})
+}
 
 	render() {
 		return(
