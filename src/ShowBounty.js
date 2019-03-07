@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import SERVER_URL from './constants/server'
 
 class ShowBounty extends Component {
   render(){
@@ -13,7 +12,7 @@ class ShowBounty extends Component {
               Last seen on the <strong>{this.props.bounty.ship}</strong>
             </p>
             <p>
-              Hunted by: {this.props.bounty.hunters.join(', ')} for {this.props.bounty.client}
+              Hunted by: {(this.props.bounty.hunters || []).join(', ')} for {this.props.bounty.client}
             </p>
             <h4>STATUS: {this.props.bounty.captured ? 'CAUGHT' : 'AT LARGE'}</h4>
           </div>

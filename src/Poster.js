@@ -7,9 +7,7 @@ class Poster extends Component {
 	}
 
 	render() {
-		const more = (<button onClick={() => this.props.changeCurrent(this.props.bounty)}>More</button>)
-		const less = (<button onClick={() => this.props.changeCurrent({})}>Less</button>)
-		const button = this.props.current === this.props.bounty ? less : more
+		const button = <button>Less/More</button>
 
     return (
 			<div className="poster">
