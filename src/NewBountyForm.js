@@ -11,13 +11,11 @@ class NewBountyForm extends Component {
 			reward: 0,
 			ship: '',
 			hunters: [],
-			captured: false,
-      error: ''
+			captured: false
 		}
 	}
 
-	storeInput = (e) => {
-		// update state to reflect user input
+	handleInput = (e) => {
 		let newState;
 		if(e.target.name === 'hunters') {
 			newState = e.target.value.split(',')
@@ -35,67 +33,48 @@ class NewBountyForm extends Component {
 
 	postBounty = (e) => {
 		e.preventDefault()
-		fetch(SERVER_URL, {
-			method: 'POST',
-			body: JSON.stringify(this.state), // data to send to server
-			headers: {
-				'Content-Type': 'application/json' // let the server know what's coming
-			}
-		})
-		.then(response => response.json())
-		.then(json => {
-      this.setState({
-        name: '',
-        wantedFor: '',
-        client: '',
-        reward: 0,
-        ship: '',
-        hunters: [],
-        captured: false
-      }, () => {
-        this.props.rerender()
-      })
-		})
-		.catch(err => {
-			console.log('Error posting data!', err)
-      this.setState({ error: 'Error posting data! Check your logs' })
-		})
+    console.log('TODO: POST Bounty')
 	}
 
 	render() {
 		return(
-			<form onSubmit={this.postBounty}>
-				<div className="form-control">
-					<label name="name">Name:</label>
-					<input type="text" name="name" onChange={this.storeInput} />
-				</div>
-				<div className="form-control">
-					<label name="wantedFor">Crime:</label>
-					<input type="text" name="wantedFor" onChange={this.storeInput} />
-				</div>
-				<div className="form-control">
-					<label name="client">Client:</label>
-					<input type="text" name="client" onChange={this.storeInput} />
-				</div>
-				<div className="form-control">
-					<label name="reward">Reward: $</label>
-					<input type="number" name="reward" onChange={this.storeInput} />
-				</div>
-				<div className="form-control">
-					<label name="ship">Ship:</label>
-					<input type="text" name="ship" onChange={this.storeInput} />
-				</div>
-				<div className="form-control">
-					<label name="hunters">Hunters:</label>
-					<input type="text" name="hunters" onChange={this.storeInput} />
-				</div>
-				<div></div>
-				<div className="form-control">
-					<label name="captured">Captured:</label>
-					<input type="checkbox" name="captured" onChange={this.storeInput} />
-					<input type="submit" value="Add New Bounty" />
-				</div>
-			</form>
+      <div>
+        <hr />
+        <h2>Is Crime Plaguing Your Neighborhood?</h2>
+        <p>Bring the galaxy's finest hunters onto your team!</p>
+  			<form onSubmit={this.postBounty}>
+  				<div className="form-control">
+  					<label name="name">Name:</label>
+  					<input type="text" name="name" onChange={this.handleInput} />
+  				</div>
+  				<div className="form-control">
+  					<label name="wantedFor">Crime:</label>
+  					<input type="text" name="wantedFor" onChange={this.handleInput} />
+  				</div>
+  				<div className="form-control">
+  					<label name="client">Client:</label>
+  					<input type="text" name="client" onChange={this.handleInput} />
+  				</div>
+  				<div className="form-control">
+  					<label name="reward">Reward: $</label>
+  					<input type="number" name="reward" onChange={this.handleInput} />
+  				</div>
+  				<div className="form-control">
+  					<label name="ship">Ship:</label>
+  					<input type="text" name="ship" onChange={this.handleInput} />
+  				</div>
+  				<div className="form-control">
+  					<label name="hunters">Hunters:</label>
+  					<input type="text" name="hunters" onChange={this.handleInput} />
+  				</div>
+  				<div></div>
+  				<div className="form-control">
+  					<label name="captured">Captured:</label>
+  					<input type="checkbox" name="captured" onChange={this.handleInput} />
+  					<input type="submit" value="Add New Bounty" />
+  				</div>
+  			</form>
+      </div>
 		)
 	}
 }
